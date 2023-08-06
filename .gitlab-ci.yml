@@ -1,0 +1,14 @@
+stages:
+  - deploy
+cache:
+  paths:
+    - node_modules/
+deploy:
+  image: docker:dind
+  stage: deploy
+  script:
+    - docker build -t app/scouter .
+    - docker run -d -p 3000:3000 --rm --name career-scouter app/scouter
+    - docker
+  only:
+    - master
